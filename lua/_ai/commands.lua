@@ -233,17 +233,10 @@ function M.chat (args)
 
     if visual_mode then
         local selected_text = table.concat(vim.api.nvim_buf_get_text(buffer, start_row, start_col, end_row, end_col, {}), "\n")
-        if prompt == "" then
-            -- Replace the selected text, also using it as a prompt
-            openai.chat_completions({
-                messages = chat_edit_messages(selected_text, buffer_prompt, prefix, selected_text),
-            }, on_data, on_complete)
-        else
-            -- Edit selected text
-            openai.chat_completions({
-                messages = chat_edit_messages(prompt, buffer_prompt, prefix, selected_text)
-            }, on_data, on_complete)
-        end
+        -- Edit selected text
+        openai.chat_completions({
+            messages = chat_edit_messages(prompt, buffer_prompt, prefix, selected_text)
+        }, on_data, on_complete)
     else
         if prompt == "" then
             openai.chat_completions({
