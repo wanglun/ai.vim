@@ -118,4 +118,18 @@ function M.edits (body, on_data, on_complete)
     request("edits", body, on_data, on_complete)
 end
 
+---@param body table
+---@param on_data fun(data: unknown): nil
+---@param on_complete fun(err: string?): nil
+function M.chat_completions (body, on_data, on_complete)
+    body = vim.tbl_extend("keep", body, {
+        model = config.chat_completions_model,
+        max_tokens = 2048,
+        temperature = config.temperature,
+        stop = {"##complete_here##"},
+        stream = true,
+    })
+    request("chat/completions", body, on_data, on_complete)
+end
+
 return M
