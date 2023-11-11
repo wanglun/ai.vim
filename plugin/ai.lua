@@ -5,7 +5,7 @@ end, {
     nargs = "*",
 })
 
-vim.api.nvim_create_user_command("Chat", function (args)
+vim.api.nvim_create_user_command("AI", function (args)
     require("_ai/commands").chat(args)
 end, {
     range = true,
